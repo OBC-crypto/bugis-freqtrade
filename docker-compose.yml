@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  freqtrade:
+    image: freqtradeorg/freqtrade:stable
+    container_name: freqtrade
+    restart: always
+    entrypoint: ""
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "
+        freqtrade install-ui &&
+        sleep 2 &&
+        freqtrade webserver --config /freqtrade/user_data/config.json --logfile /freqtrade/user_data/logs/freqtrade.log
+      "
